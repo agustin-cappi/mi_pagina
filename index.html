@@ -254,6 +254,46 @@
             }
         }
 
+        /* Reflejos Sandevistan */
+        .sande-arena {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+            background: #020205;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+        .sande-target {
+            position: absolute;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #FF0055;
+            border: 3px solid #FCEE0A;
+            box-shadow: 0 0 18px #FF0055;
+            cursor: pointer;
+        }
+
+        /* Bartender del Afterlife */
+        .bar-ingredient {
+            min-height: 48px;
+            padding: 0.5rem;
+            background: #020205;
+            border: 1px solid rgba(252, 238, 10, 0.5);
+            color: #FCEE0A;
+            font-size: 0.85rem;
+            transition: background-color 0.12s, color 0.12s;
+        }
+        .bar-ingredient:hover:not(:disabled),
+        .bar-ingredient:focus-visible {
+            background: #FCEE0A;
+            color: #020205;
+            outline: none;
+        }
+        .bar-ingredient:disabled {
+            cursor: not-allowed;
+            opacity: 0.35;
+        }
+
         /* Background grid pattern */
         .bg-grid {
             background-image: linear-gradient(to right, rgba(252, 238, 10, 0.05) 1px, transparent 1px),
@@ -322,6 +362,11 @@
                     <span class="text-cyberYellow font-bold">SECTOR:</span> <span class="text-white">WATSON_H12</span>
                 </div>
             </div>
+
+            <!-- Eddies Wallet -->
+            <a href="#mercado" class="border border-cyberYellow/50 bg-cyberYellow/10 px-3 py-2 text-xs text-cyberYellow font-bold tracking-wider clip-btn hover:bg-cyberYellow/20" aria-label="Billetera de eddies, ir al mercado">
+                <i class="fa-solid fa-wallet mr-2"></i><span class="text-cyberCyan">€$</span> <span id="wallet-balance">0</span>
+            </a>
 
             <!-- Header Action -->
             <div class="flex items-center space-x-3">
@@ -395,6 +440,7 @@
             <a href="#recetario" class="hover:text-cyberMagenta">// RECETARIO</a>
             <a href="#distritos" class="hover:text-cyberMagenta">// DISTRITOS</a>
             <a href="#breach" class="hover:text-cyberMagenta">// BREACH_PROTOCOL</a>
+            <a href="#mercado" class="hover:text-cyberMagenta">// MERCADO</a>
         </nav>
 
         <!-- Futuristic Stats / Grid Cards -->
@@ -551,7 +597,7 @@
         <section id="breach" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
             <div class="text-cyberMagenta text-xs tracking-widest mb-1">// MINIJUEGO</div>
             <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">BREACH <span class="text-cyberYellow glow-yellow">PROTOCOL</span></h3>
-            <p class="text-sm text-cyberCyan/80 mb-6 max-w-2xl">Hackea el ICE: completa la secuencia en orden y sin interrupciones antes de llenar el búfer. Empiezas en la primera fila y cada selección alterna entre fila y columna.</p>
+            <p class="text-sm text-cyberCyan/80 mb-6 max-w-2xl">Hackea el ICE: completa la secuencia en orden y sin interrupciones antes de llenar el búfer. Empiezas en la primera fila y cada selección alterna entre fila y columna. Cada hackeo exitoso paga eddies a tu billetera.</p>
 
             <div class="bg-cyberDark/90 border border-cyberCyan/30 p-3 md:p-6 clip-corner-1 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div id="breach-grid" class="breach-grid" role="group" aria-label="Matriz de códigos"></div>
@@ -559,7 +605,7 @@
                 <div class="flex flex-col gap-5">
                     <div class="grid grid-cols-3 gap-2 text-xs uppercase">
                         <div><div class="text-cyberCyan/70">Nivel</div><div id="breach-level" class="cyber-font text-xl text-white">1</div></div>
-                        <div><div class="text-cyberCyan/70">Eddies</div><div id="breach-score" class="cyber-font text-xl text-white">0</div></div>
+                        <div><div class="text-cyberCyan/70">Racha</div><div id="breach-score" class="cyber-font text-xl text-white">0</div></div>
                         <div><div class="text-cyberCyan/70">Récord</div><div id="breach-best" class="cyber-font text-xl text-cyberYellow">0</div></div>
                     </div>
 
@@ -586,6 +632,52 @@
 
                     <button id="breach-action" type="button" class="hidden bg-cyberYellow text-cyberDarker font-black px-6 py-3 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan transition-all duration-200 text-sm"></button>
                 </div>
+            </div>
+        </section>
+
+        <!-- Minigame Market -->
+        <section id="mercado" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// MERCADO_NEGRO</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">MERCADO DE <span class="text-cyberYellow glow-yellow">MINIJUEGOS</span></h3>
+            <p class="text-sm text-cyberCyan/80 mb-6 max-w-2xl">Gana eddies en Breach Protocol y gástalos aquí. Son ficticios y se guardan solo en este navegador.</p>
+            <div id="market-items" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </section>
+
+        <!-- Sandevistan Minigame -->
+        <section id="sandevistan" class="hidden w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// €$ 15 POR ACIERTO</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">REFLEJOS <span class="text-cyberCyan glow-cyan">SANDEVISTAN</span></h3>
+            <p class="text-sm text-cyberCyan/80 mb-4 max-w-2xl">Toca cada objetivo antes de que desaparezca. Cada acierto los acelera, y tres fallos terminan la partida.</p>
+            <div class="bg-cyberDark/90 border border-cyberCyan/30 p-3 md:p-6">
+                <div class="flex flex-wrap justify-between gap-2 text-xs uppercase mb-3">
+                    <span class="text-cyberCyan/70">Aciertos: <span id="sande-hits" class="text-white">0</span></span>
+                    <span class="text-cyberCyan/70">Fallos: <span id="sande-misses" class="text-cyberMagenta">0</span> / 3</span>
+                </div>
+                <div id="sande-arena" class="sande-arena" role="group" aria-label="Zona de objetivos"></div>
+                <p id="sande-status" class="text-sm text-cyberYellow min-h-[2.5rem] mt-3" aria-live="polite">Activa el Sandevistan cuando estés listo.</p>
+                <button id="sande-start" type="button" class="bg-cyberYellow text-cyberDarker font-black px-6 py-3 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan transition-all duration-200 text-sm">ACTIVAR</button>
+            </div>
+        </section>
+
+        <!-- Bartender Minigame -->
+        <section id="bartender" class="hidden w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// €$ 50 POR TRAGO</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">BARTENDER DEL <span class="text-cyberMagenta glow-magenta">AFTERLIFE</span></h3>
+            <p class="text-sm text-cyberCyan/80 mb-4 max-w-2xl">Tienes 45 segundos para servir todos los tragos que puedas. Tres ingredientes equivocados y Rogue te echa del bar. Los tragos de Rogue y David Martinez son recetas inventadas para este juego.</p>
+            <div class="bg-cyberDark/90 border border-cyberMagenta/30 p-3 md:p-6">
+                <div class="flex flex-wrap justify-between gap-2 text-xs uppercase mb-3">
+                    <span class="text-cyberCyan/70">Tiempo: <span id="bar-time" class="text-white">45.0</span></span>
+                    <span class="text-cyberCyan/70">Servidos: <span id="bar-served" class="text-white">0</span></span>
+                    <span class="text-cyberCyan/70">Errores: <span id="bar-strikes" class="text-cyberMagenta">0</span> / 3</span>
+                </div>
+                <div class="bg-cyberDarker border border-cyberMagenta/30 p-3 mb-3 min-h-[5.5rem]">
+                    <div class="text-xs uppercase text-cyberCyan/70">Pedido</div>
+                    <div id="bar-order" class="cyber-font text-lg text-white uppercase">Sin clientes</div>
+                    <div id="bar-recipe" class="text-sm text-cyberYellow"></div>
+                </div>
+                <div id="bar-ingredients" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-3" role="group" aria-label="Ingredientes"></div>
+                <p id="bar-status" class="text-sm text-cyberYellow min-h-[2.5rem]" aria-live="polite">Abre la barra cuando estés listo.</p>
+                <button id="bar-start" type="button" class="bg-cyberYellow text-cyberDarker font-black px-6 py-3 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan transition-all duration-200 text-sm">ABRIR LA BARRA</button>
             </div>
         </section>
 
@@ -671,6 +763,75 @@
                 toast.remove();
             }, 3000);
         }
+    </script>
+
+    <!-- Eddies Wallet Logic -->
+    <script>
+        window.ncWallet = (function () {
+            const KEY = 'nc-wallet-v1';
+            const listeners = [];
+            let state = load();
+
+            // Datos ausentes o dañados se tratan como una billetera vacía.
+            function load() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(KEY)) || {};
+                    const balance = Math.floor(Number(saved.balance));
+                    return {
+                        balance: balance > 0 ? balance : 0,
+                        owned: Array.isArray(saved.owned) ? saved.owned : [],
+                    };
+                } catch (e) {
+                    return { balance: 0, owned: [] };
+                }
+            }
+
+            function save() {
+                try {
+                    localStorage.setItem(KEY, JSON.stringify(state));
+                } catch (e) {
+                    // Sin almacenamiento, el saldo solo dura esta visita.
+                }
+            }
+
+            function notify() {
+                listeners.forEach((listener) => listener());
+            }
+
+            // Mantiene el saldo al día si la página está abierta en otra pestaña.
+            window.addEventListener('storage', (event) => {
+                if (event.key === KEY) {
+                    state = load();
+                    notify();
+                }
+            });
+
+            return {
+                balance: () => state.balance,
+                owns: (id) => state.owned.includes(id),
+                add(amount) {
+                    state.balance += amount;
+                    save();
+                    notify();
+                },
+                buy(id, price) {
+                    if (state.owned.includes(id) || state.balance < price) return false;
+                    state.balance -= price;
+                    state.owned.push(id);
+                    save();
+                    notify();
+                    return true;
+                },
+                subscribe(listener) {
+                    listeners.push(listener);
+                    listener();
+                },
+            };
+        })();
+
+        window.ncWallet.subscribe(() => {
+            document.getElementById('wallet-balance').textContent = window.ncWallet.balance().toLocaleString('es');
+        });
     </script>
 
     <!-- Breach Protocol Minigame Logic -->
@@ -858,6 +1019,7 @@
                 endRound();
                 const gained = 100 * level + Math.ceil(round.remaining) * 10;
                 score += gained;
+                window.ncWallet.add(gained);
                 if (score > best) {
                     best = score;
                     saveBest();
@@ -869,7 +1031,7 @@
 
             function loseRound(message) {
                 endRound();
-                setStatus(`${message} EDDIES FINALES: ${score}.`);
+                setStatus(`${message} RACHA FINAL: €$ ${score}.`);
                 level = 1;
                 score = 0;
                 showAction('REINTENTAR');
@@ -950,6 +1112,266 @@
             });
 
             startRound();
+        })();
+    </script>
+
+    <!-- Minigame Market Logic -->
+    <script>
+        (function () {
+            const wallet = window.ncWallet;
+            const CATALOG = [
+                { id: 'sandevistan', name: 'Reflejos Sandevistan', price: 1500, icon: 'fa-bolt', description: 'Toca los objetivos antes de que desaparezcan. Paga €$ 15 por acierto.' },
+                { id: 'bartender', name: 'Bartender del Afterlife', price: 2500, icon: 'fa-martini-glass', description: 'Prepara los pedidos del bar contra el reloj. Paga €$ 50 por trago.' },
+            ];
+            const itemsEl = document.getElementById('market-items');
+
+            const items = CATALOG.map((item) => {
+                const card = document.createElement('div');
+                card.className = 'bg-cyberDark/90 border border-cyberYellow/30 p-4 flex flex-col gap-2';
+
+                const title = document.createElement('h4');
+                title.className = 'cyber-font text-white font-bold uppercase';
+                const icon = document.createElement('i');
+                icon.className = `fa-solid ${item.icon} text-cyberYellow mr-2`;
+                title.append(icon, item.name);
+
+                const description = document.createElement('p');
+                description.className = 'text-xs text-cyberCyan/70 flex-grow';
+                description.textContent = item.description;
+
+                const note = document.createElement('p');
+                note.className = 'text-xs text-cyberMagenta min-h-[1rem]';
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'font-black px-4 py-3 uppercase tracking-widest cyber-font clip-btn transition-all duration-200 text-sm';
+                button.addEventListener('click', () => {
+                    if (!wallet.owns(item.id) && !wallet.buy(item.id, item.price)) return;
+                    const section = document.getElementById(item.id);
+                    section.scrollIntoView();
+                    section.querySelector('button').focus({ preventScroll: true });
+                });
+
+                card.append(title, description, note, button);
+                itemsEl.appendChild(card);
+                return { item, note, button };
+            });
+
+            wallet.subscribe(() => {
+                items.forEach(({ item, note, button }) => {
+                    const owned = wallet.owns(item.id);
+                    const missing = item.price - wallet.balance();
+                    document.getElementById(item.id).classList.toggle('hidden', !owned);
+                    button.textContent = owned ? 'JUGAR' : `COMPRAR // €$ ${item.price.toLocaleString('es')}`;
+                    button.disabled = !owned && missing > 0;
+                    button.classList.toggle('bg-cyberYellow', !button.disabled);
+                    button.classList.toggle('text-cyberDarker', !button.disabled);
+                    button.classList.toggle('bg-cyberGray', button.disabled);
+                    button.classList.toggle('text-cyberCyan/60', button.disabled);
+                    button.classList.toggle('cursor-not-allowed', button.disabled);
+                    note.textContent = button.disabled ? `Te faltan €$ ${missing.toLocaleString('es')}.` : '';
+                });
+            });
+        })();
+
+        // Reflejos Sandevistan
+        (function () {
+            const REWARD = 15;
+            const MAX_MISSES = 3;
+            const arena = document.getElementById('sande-arena');
+            const hitsEl = document.getElementById('sande-hits');
+            const missesEl = document.getElementById('sande-misses');
+            const statusEl = document.getElementById('sande-status');
+            const startEl = document.getElementById('sande-start');
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let run = null;
+
+            function clearTarget() {
+                clearTimeout(run.timer);
+                arena.textContent = '';
+            }
+
+            function spawn() {
+                clearTarget();
+                const target = document.createElement('button');
+                target.type = 'button';
+                target.className = 'sande-target';
+                target.setAttribute('aria-label', 'Objetivo');
+                target.style.left = `calc((100% - 56px) * ${Math.random()})`;
+                target.style.top = `calc((100% - 56px) * ${Math.random()})`;
+                arena.appendChild(target);
+                if (!reducedMotion) {
+                    target.animate([{ transform: 'scale(1)' }, { transform: 'scale(0.45)' }], { duration: run.life, fill: 'forwards' });
+                }
+                target.focus({ preventScroll: true });
+                run.timer = setTimeout(miss, run.life);
+            }
+
+            function hit() {
+                run.hits += 1;
+                run.life = Math.max(550, run.life - 30);
+                hitsEl.textContent = run.hits;
+                window.ncWallet.add(REWARD);
+                spawn();
+            }
+
+            function miss() {
+                run.misses += 1;
+                missesEl.textContent = run.misses;
+                if (run.misses >= MAX_MISSES) {
+                    end();
+                } else {
+                    spawn();
+                }
+            }
+
+            function end() {
+                clearTarget();
+                statusEl.textContent = `SANDEVISTAN APAGADO // +${run.hits * REWARD} EDDIES.`;
+                run = null;
+                startEl.textContent = 'REINTENTAR';
+                startEl.classList.remove('hidden');
+                startEl.focus({ preventScroll: true });
+            }
+
+            arena.addEventListener('click', (event) => {
+                if (!run) return;
+                if (event.target.closest('.sande-target')) {
+                    hit();
+                } else {
+                    miss();
+                }
+            });
+
+            startEl.addEventListener('click', () => {
+                run = { hits: 0, misses: 0, life: 1400, timer: null };
+                hitsEl.textContent = '0';
+                missesEl.textContent = '0';
+                statusEl.textContent = 'Toca los objetivos.';
+                startEl.classList.add('hidden');
+                spawn();
+            });
+        })();
+
+        // Bartender del Afterlife
+        (function () {
+            const REWARD = 50;
+            const SHIFT_SECONDS = 45;
+            const MAX_STRIKES = 3;
+            const DRINKS = [
+                { name: 'Jackie Welles', recipe: ['Vodka', 'Ginger beer', 'Lima'] },
+                { name: 'Johnny Silverhand', recipe: ['Tequila', 'Angostura', 'Cerveza', 'Chile'] },
+                { name: 'Rogue', recipe: ['Whisky', 'Vermut', 'Angostura'] },
+                { name: 'David Martinez', recipe: ['Ron', 'Cola', 'Lima'] },
+            ];
+            const INGREDIENTS = ['Vodka', 'Tequila', 'Whisky', 'Ron', 'Ginger beer', 'Cola', 'Cerveza', 'Vermut', 'Lima', 'Chile', 'Angostura', 'Hielo seco'];
+
+            const timeEl = document.getElementById('bar-time');
+            const servedEl = document.getElementById('bar-served');
+            const strikesEl = document.getElementById('bar-strikes');
+            const orderEl = document.getElementById('bar-order');
+            const recipeEl = document.getElementById('bar-recipe');
+            const ingredientsEl = document.getElementById('bar-ingredients');
+            const statusEl = document.getElementById('bar-status');
+            const startEl = document.getElementById('bar-start');
+            let shift = null;
+
+            function shuffled(items) {
+                const copy = items.slice();
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
+
+            function renderRecipe() {
+                recipeEl.textContent = shift.order.recipe
+                    .map((name) => (shift.added.has(name) ? `[OK] ${name}` : name))
+                    .join(' + ');
+            }
+
+            function nextOrder() {
+                const options = DRINKS.filter((drink) => !shift.order || drink !== shift.order);
+                shift.order = options[Math.floor(Math.random() * options.length)];
+                shift.added = new Set();
+                orderEl.textContent = shift.order.name;
+                renderRecipe();
+
+                ingredientsEl.textContent = '';
+                shuffled(INGREDIENTS).forEach((name) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'bar-ingredient';
+                    button.textContent = name;
+                    button.addEventListener('click', () => pour(name, button));
+                    ingredientsEl.appendChild(button);
+                });
+                ingredientsEl.firstChild.focus({ preventScroll: true });
+            }
+
+            function pour(name, button) {
+                if (!shift) return;
+                if (!shift.order.recipe.includes(name)) {
+                    shift.strikes += 1;
+                    strikesEl.textContent = shift.strikes;
+                    if (shift.strikes >= MAX_STRIKES) {
+                        end('ROGUE TE ECHÓ DEL BAR');
+                    } else {
+                        statusEl.textContent = `${name} no va en este trago. Pedido perdido.`;
+                        nextOrder();
+                    }
+                    return;
+                }
+
+                shift.added.add(name);
+                button.disabled = true;
+                renderRecipe();
+                if (shift.added.size === shift.order.recipe.length) {
+                    shift.served += 1;
+                    servedEl.textContent = shift.served;
+                    window.ncWallet.add(REWARD);
+                    statusEl.textContent = `${shift.order.name} servido // +${REWARD} EDDIES.`;
+                    nextOrder();
+                } else {
+                    ingredientsEl.querySelector('.bar-ingredient:not(:disabled)').focus({ preventScroll: true });
+                }
+            }
+
+            function tick() {
+                const remaining = Math.max(0, (shift.deadline - performance.now()) / 1000);
+                timeEl.textContent = remaining.toFixed(1);
+                if (remaining === 0) end('SE ACABÓ EL TURNO');
+            }
+
+            function end(reason) {
+                clearInterval(shift.timer);
+                statusEl.textContent = `${reason} // +${shift.served * REWARD} EDDIES.`;
+                shift = null;
+                orderEl.textContent = 'Sin clientes';
+                recipeEl.textContent = '';
+                ingredientsEl.textContent = '';
+                startEl.textContent = 'OTRO TURNO';
+                startEl.classList.remove('hidden');
+                startEl.focus({ preventScroll: true });
+            }
+
+            startEl.addEventListener('click', () => {
+                shift = {
+                    served: 0,
+                    strikes: 0,
+                    order: null,
+                    added: new Set(),
+                    deadline: performance.now() + SHIFT_SECONDS * 1000,
+                    timer: setInterval(tick, 100),
+                };
+                servedEl.textContent = '0';
+                strikesEl.textContent = '0';
+                timeEl.textContent = SHIFT_SECONDS.toFixed(1);
+                statusEl.textContent = 'Prepara el pedido.';
+                startEl.classList.add('hidden');
+                nextOrder();
+            });
         })();
     </script>
 </body>
