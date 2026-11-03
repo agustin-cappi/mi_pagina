@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WELCOME TO NIGHT CITY // 2077</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyberYellow: '#FCEE0A',
+                        cyberCyan: '#00F0FF',
+                        cyberMagenta: '#FF0055',
+                        cyberDark: '#05050A',
+                        cyberDarker: '#020205',
+                        cyberGray: '#1A1A24',
+                    },
+                    fontFamily: {
+                        cyber: ['Orbitron', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Orbitron & Share Tech Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Cyberpunk styling & clip-paths */
+        body {
+            background-color: #05050A;
+            color: #FCEE0A;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Clipped corners effect */
+        .clip-corner-1 {
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .clip-corner-2 {
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+
+        .clip-btn {
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.3) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.03),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* CRT flicker & Vignette */
+        .crt-vignette {
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+        }
+
+        /* Glitch Animation */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #00F0FF;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #FF0055, 0 2px #FCEE0A;
+            clip: rect(85px, 450px, 140px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            10% { clip: rect(112px, 9999px, 76px, 0); }
+            20% { clip: rect(85px, 9999px, 5px, 0); }
+            30% { clip: rect(27px, 9999px, 120px, 0); }
+            40% { clip: rect(140px, 9999px, 11px, 0); }
+            50% { clip: rect(59px, 9999px, 98px, 0); }
+            60% { clip: rect(2px, 9999px, 145px, 0); }
+            70% { clip: rect(91px, 9999px, 34px, 0); }
+            80% { clip: rect(12px, 9999px, 88px, 0); }
+            90% { clip: rect(65px, 9999px, 110px, 0); }
+            100% { clip: rect(40px, 9999px, 62px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(76px, 9999px, 12px, 0); }
+            11% { clip: rect(4px, 9999px, 132px, 0); }
+            22% { clip: rect(104px, 9999px, 45px, 0); }
+            33% { clip: rect(18px, 9999px, 99px, 0); }
+            44% { clip: rect(78px, 9999px, 30px, 0); }
+            55% { clip: rect(133px, 9999px, 67px, 0); }
+            66% { clip: rect(52px, 9999px, 119px, 0); }
+            77% { clip: rect(20px, 9999px, 4px, 0); }
+            88% { clip: rect(96px, 9999px, 83px, 0); }
+            100% { clip: rect(110px, 9999px, 25px, 0); }
+        }
+
+        /* Neon Glow Utility */
+        .glow-yellow {
+            text-shadow: 0 0 10px rgba(252, 238, 10, 0.7), 0 0 20px rgba(252, 238, 10, 0.4);
+        }
+        .glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+        .glow-magenta {
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.7), 0 0 20px rgba(255, 0, 85, 0.4);
+        }
+        .box-glow-yellow {
+            box-shadow: 0 0 15px rgba(252, 238, 10, 0.3);
+        }
+        .box-glow-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020205;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FCEE0A;
+        }
+
+        /* Background grid pattern */
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(252, 238, 10, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(252, 238, 10, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative bg-grid">
+
+    <!-- Overlays -->
+    <div class="fixed inset-0 scanlines z-40 pointer-events-none"></div>
+    <div class="fixed inset-0 crt-vignette z-40 pointer-events-none"></div>
+
+    <!-- Notification Modal / Terminal Prompt -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-cyberDark border-2 border-cyberCyan p-6 md:p-8 max-w-md w-full clip-corner-1 relative box-glow-cyan">
+            <button onclick="toggleModal(false)" class="absolute top-4 right-4 text-cyberCyan hover:text-cyberMagenta text-xl font-bold transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-cyberCyan text-xs tracking-widest mb-1">// SECURE_UPLINK_v4.2.0</div>
+            <h3 class="cyber-font text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-wider">AUTENTICACIÓN DE NETRUNNER</h3>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase text-cyberYellow mb-1 font-mono">ID DE NEURO-CONEXIÓN</label>
+                    <input type="text" required placeholder="NET-ID: 994-OMEGA" class="w-full bg-cyberDarker border border-cyberCyan/50 text-cyberCyan p-3 focus:outline-none focus:border-cyberYellow font-mono text-sm clip-btn">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-cyberYellow mb-1 font-mono">CLAVE DE ACCESO BIOMÉTRICO</label>
+                    <input type="password" required placeholder="••••••••••••" class="w-full bg-cyberDarker border border-cyberCyan/50 text-cyberCyan p-3 focus:outline-none focus:border-cyberYellow font-mono text-sm clip-btn">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-cyberCyan text-cyberDarker font-black py-3 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberYellow transition-all duration-200 shadow-lg">
+                        ESTABLECER CONEXIÓN
+                    </button>
+                </div>
+            </form>
+            <div id="login-status" class="mt-4 text-xs font-mono text-center text-cyberMagenta hidden"></div>
+        </div>
+    </div>
+
+    <!-- Top Header Navigation -->
+    <header class="w-full border-b border-cyberYellow/20 bg-cyberDarker/80 backdrop-blur-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <!-- Brand / Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-cyberYellow flex items-center justify-center clip-corner-2 font-black text-cyberDarker cyber-font text-lg">
+                    NC
+                </div>
+                <div>
+                    <h1 class="cyber-font text-sm font-black tracking-widest text-white">NIGHT CITY <span class="text-cyberYellow">CORP</span></h1>
+                    <p class="text-[10px] text-cyberCyan tracking-wider">// ARASAKA_SECURE_GRID</p>
+                </div>
+            </div>
+
+            <!-- Live Futuristic Clock & Date -->
+            <div class="hidden md:flex items-center space-x-6 text-xs text-cyberCyan border-x border-cyberCyan/20 px-6">
+                <div>
+                    <span class="text-cyberYellow font-bold">FECHA:</span> <span id="current-date">OCT.24.2077</span>
+                </div>
+                <div>
+                    <span class="text-cyberYellow font-bold">HORA:</span> <span id="current-time">19:42:05</span>
+                </div>
+                <div>
+                    <span class="text-cyberYellow font-bold">SECTOR:</span> <span class="text-white">WATSON_H12</span>
+                </div>
+            </div>
+
+            <!-- Header Action -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleModal(true)" class="bg-transparent border border-cyberYellow text-cyberYellow px-4 py-2 text-xs font-bold uppercase tracking-wider cyber-font clip-btn hover:bg-cyberYellow hover:text-cyberDarker transition-all duration-200">
+                    <i class="fa-solid fa-terminal mr-2"></i> ACCEDER
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-12 md:py-20 flex-grow flex flex-col justify-center items-center text-center relative z-10 w-full">
+        
+        <!-- Top Tag badge -->
+        <div class="inline-flex items-center space-x-2 bg-cyberMagenta/10 border border-cyberMagenta px-4 py-1.5 mb-6 clip-corner-1">
+            <span class="w-2 h-2 rounded-full bg-cyberMagenta animate-ping"></span>
+            <span class="text-cyberMagenta cyber-font text-xs tracking-widest uppercase font-bold">SISTEMA EN LÍNEA // ALERTA NIVEL 4</span>
+        </div>
+
+        <!-- Main Title with Glitch Effect -->
+        <h2 class="cyber-font text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter text-white mb-4 glitch" data-text="WELCOME TO NIGHT CITY">
+            WELCOME TO <span class="text-cyberYellow glow-yellow">NIGHT CITY</span>
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="max-w-2xl text-sm sm:text-base md:text-lg text-cyberCyan/90 mb-10 font-mono tracking-wider leading-relaxed">
+            "La peor ciudad de Estados Unidos para vivir. Tu estatus económico determina tu pulso. Conéctate a la red neural y sobrevive a la noche eterna."
+        </p>
+
+        <!-- Interactive CTA Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-md mb-16">
+            <!-- Primary CTA -->
+            <button onclick="toggleModal(true)" class="w-full sm:w-auto bg-cyberYellow text-cyberDarker font-black px-8 py-4 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan hover:shadow-[0_0_20px_#00F0FF] transition-all duration-200 text-sm flex items-center justify-center space-x-2">
+                <span>INICIAR SESIÓN</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+            </button>
+            
+            <!-- Secondary CTA -->
+            <button onclick="playAudioEffect()" class="w-full sm:w-auto bg-transparent border-2 border-cyberCyan text-cyberCyan font-bold px-8 py-3.5 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan/10 hover:border-cyberMagenta hover:text-cyberMagenta transition-all duration-200 text-sm">
+                <i class="fa-solid fa-microchip mr-2"></i> PROTOCOLOS
+            </button>
+        </div>
+
+        <!-- Futuristic Stats / Grid Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left">
+            <!-- Card 1 -->
+            <div class="bg-cyberDark/90 border border-cyberYellow/30 p-6 clip-corner-1 relative group hover:border-cyberYellow transition-all duration-300">
+                <div class="absolute top-0 right-0 bg-cyberYellow/10 text-cyberYellow text-[10px] px-2 py-1 font-mono">01 // NEURAL</div>
+                <div class="text-cyberYellow text-2xl mb-3"><i class="fa-solid fa-brain"></i></div>
+                <h4 class="cyber-font text-white font-bold text-lg mb-2 uppercase">CYBERWARE INTEGRATION</h4>
+                <p class="text-xs text-cyberCyan/70 font-mono">Sincronización de implantes ópticos y neurológicos con latencia cero a través de la red local.</p>
+                <div class="mt-4 pt-3 border-t border-cyberYellow/20 flex justify-between items-center text-[11px] text-cyberYellow">
+                    <span>ESTADO: ACTIVO</span>
+                    <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-cyberDark/90 border border-cyberCyan/30 p-6 clip-corner-2 relative group hover:border-cyberCyan transition-all duration-300">
+                <div class="absolute top-0 right-0 bg-cyberCyan/10 text-cyberCyan text-[10px] px-2 py-1 font-mono">02 // SEC</div>
+                <div class="text-cyberCyan text-2xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4 class="cyber-font text-white font-bold text-lg mb-2 uppercase">ICE DEFENSE MATRIX</h4>
+                <p class="text-xs text-cyberCyan/70 font-mono">Cortafuegos cuántico avanzado diseñado para repeler ataques de netrunners corporativos hostiles.</p>
+                <div class="mt-4 pt-3 border-t border-cyberCyan/20 flex justify-between items-center text-[11px] text-cyberCyan">
+                    <span>ESTADO: BLINDADO</span>
+                    <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-cyberDark/90 border border-cyberMagenta/30 p-6 clip-corner-1 relative group hover:border-cyberMagenta transition-all duration-300">
+                <div class="absolute top-0 right-0 bg-cyberMagenta/10 text-cyberMagenta text-[10px] px-2 py-1 font-mono">03 // GRID</div>
+                <div class="text-cyberMagenta text-2xl mb-3"><i class="fa-solid fa-city"></i></div>
+                <h4 class="cyber-font text-white font-bold text-lg mb-2 uppercase">DISTRICT CONTROL</h4>
+                <p class="text-xs text-cyberCyan/70 font-mono">Monitoreo en tiempo real de los seis distritos bajo jurisdicción del cuerpo de seguridad autónomo.</p>
+                <div class="mt-4 pt-3 border-t border-cyberMagenta/20 flex justify-between items-center text-[11px] text-cyberMagenta">
+                    <span>ESTADO: EN LÍNEA</span>
+                    <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-cyberYellow/20 bg-cyberDarker py-4 px-4 text-center text-xs text-cyberCyan/60 font-mono relative z-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <div>&copy; 2077 NIGHT CITY MUNICIPAL NETWORK. TODOS LOS DERECHOS RESERVADOS.</div>
+            <div class="flex space-x-4">
+                <span class="hover:text-cyberYellow cursor-pointer">// TÉRMINOS_CORPORATIVOS</span>
+                <span class="hover:text-cyberYellow cursor-pointer">// PRIVACIDAD_NEURAL</span>
+                <span class="hover:text-cyberYellow cursor-pointer">// SOPORTE_MAX-TAC</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        // Update Live Clock and Date
+        function updateClock() {
+            const now = new Date();
+            
+            // Format time HH:MM:SS
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds}`;
+
+            // Format date futuristic style
+            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const monthStr = months[now.getMonth()];
+            const dayStr = String(now.getDate()).padStart(2, '0');
+            document.getElementById('current-date').textContent = `${monthStr}.${dayStr}.2077`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Modal Toggle
+        function toggleModal(show) {
+            const modal = document.getElementById('auth-modal');
+            const statusEl = document.getElementById('login-status');
+            if (show) {
+                modal.classList.remove('hidden');
+                statusEl.classList.add('hidden');
+                statusEl.textContent = '';
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Simulated Login Handler
+        function handleLogin(event) {
+            event.preventDefault();
+            const statusEl = document.getElementById('login-status');
+            statusEl.classList.remove('hidden');
+            statusEl.textContent = "AUTENTICANDO CONEXIÓN NEURONAL...";
+            
+            setTimeout(() => {
+                statusEl.textContent = "¡ACCESO CONCEDIDO! BIENVENIDO A NIGHT CITY.";
+                statusEl.className = "mt-4 text-xs font-mono text-center text-cyberYellow font-bold";
+                setTimeout(() => {
+                    toggleModal(false);
+                }, 1500);
+            }, 1200);
+        }
+
+        // Simple audio visual feedback simulator (Console log & screen flash)
+        function playAudioEffect() {
+            const body = document.body;
+            body.classList.add('ring-2', 'ring-cyberCyan');
+            setTimeout(() => {
+                body.classList.remove('ring-2', 'ring-cyberCyan');
+            }, 200);
+            
+            // Show custom toast notice
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 z-50 bg-cyberDark border border-cyberYellow text-cyberYellow px-4 py-3 text-xs font-mono clip-corner-1 box-glow-yellow shadow-2xl animate-bounce';
+            toast.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> PROTOCOLO DE SEGURIDAD VERIFICADO.';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
