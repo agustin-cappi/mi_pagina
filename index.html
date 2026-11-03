@@ -164,6 +164,96 @@
             background: #FCEE0A;
         }
 
+        /* Breach Protocol minigame */
+        .breach-grid {
+            display: grid;
+            gap: 4px;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .breach-cell {
+            aspect-ratio: 1;
+            min-width: 0;
+            background: #020205;
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            color: rgba(0, 240, 255, 0.35);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.05rem;
+            transition: background-color 0.12s, color 0.12s, border-color 0.12s;
+        }
+        .breach-cell.is-active {
+            background: rgba(252, 238, 10, 0.08);
+            border-color: rgba(252, 238, 10, 0.55);
+            color: #FCEE0A;
+            cursor: pointer;
+        }
+        .breach-cell.is-active:hover,
+        .breach-cell.is-active:focus-visible {
+            background: #FCEE0A;
+            color: #020205;
+            outline: none;
+        }
+        .breach-cell.is-used {
+            background: transparent;
+            border-color: transparent;
+            color: rgba(255, 255, 255, 0.12);
+        }
+        .breach-slot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px dashed rgba(0, 240, 255, 0.35);
+            color: #00F0FF;
+            font-size: 0.95rem;
+        }
+        .breach-slot.is-filled {
+            border-style: solid;
+        }
+        .breach-slot.is-matched {
+            background: #FCEE0A;
+            border: 1px solid #FCEE0A;
+            color: #020205;
+        }
+
+        /* N54 News ticker */
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: ticker-scroll 60s linear infinite;
+        }
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes ticker-scroll {
+            to { transform: translateX(-50%); }
+        }
+
+        /* Samurai emblem */
+        .samurai-emblem {
+            filter: drop-shadow(0 0 14px rgba(255, 0, 85, 0.55));
+        }
+
+        /* Afterlife neon sign */
+        .afterlife-sign {
+            color: #FFD9E6;
+            text-shadow: 0 0 6px #FF0055, 0 0 18px #FF0055, 0 0 42px #FF0055;
+            animation: neon-flicker 7s infinite;
+        }
+        @keyframes neon-flicker {
+            0%, 91%, 94%, 97%, 100% { opacity: 1; }
+            92%, 96% { opacity: 0.45; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ticker-track,
+            .afterlife-sign {
+                animation: none;
+            }
+        }
+
         /* Background grid pattern */
         .bg-grid {
             background-image: linear-gradient(to right, rgba(252, 238, 10, 0.05) 1px, transparent 1px),
@@ -235,12 +325,35 @@
 
             <!-- Header Action -->
             <div class="flex items-center space-x-3">
+                <a href="#breach" class="bg-transparent border border-cyberCyan text-cyberCyan px-4 py-2 text-xs font-bold uppercase tracking-wider cyber-font clip-btn hover:bg-cyberCyan hover:text-cyberDarker transition-all duration-200">
+                    <i class="fa-solid fa-gamepad mr-2"></i> JUGAR
+                </a>
                 <button onclick="toggleModal(true)" class="bg-transparent border border-cyberYellow text-cyberYellow px-4 py-2 text-xs font-bold uppercase tracking-wider cyber-font clip-btn hover:bg-cyberYellow hover:text-cyberDarker transition-all duration-200">
                     <i class="fa-solid fa-terminal mr-2"></i> ACCEDER
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- N54 News Ticker -->
+    <div class="w-full overflow-hidden bg-cyberYellow text-cyberDarker text-xs font-bold py-1.5 relative z-20" aria-label="Noticias de N54 News">
+        <div class="ticker-track">
+            <div class="flex shrink-0">
+                <span class="px-6">N54 NEWS // TRAUMA TEAM RESPONDE A UN TIROTEO EN KABUKI</span>
+                <span class="px-6">// MAX-TAC ACORDONA UN SECTOR DE WATSON TRAS UN BROTE DE CIBERPSICOSIS</span>
+                <span class="px-6">// ARASAKA NIEGA TODO, COMO SIEMPRE</span>
+                <span class="px-6">// PACIFICA SIGUE SIN LUZ Y SIN NOTICIAS DE LA NCPD</span>
+                <span class="px-6">// HOY EN EL AFTERLIFE: CONTRATOS NUEVOS, SOLO PARA MERCS CON EDDIES</span>
+            </div>
+            <div class="flex shrink-0" aria-hidden="true">
+                <span class="px-6">N54 NEWS // TRAUMA TEAM RESPONDE A UN TIROTEO EN KABUKI</span>
+                <span class="px-6">// MAX-TAC ACORDONA UN SECTOR DE WATSON TRAS UN BROTE DE CIBERPSICOSIS</span>
+                <span class="px-6">// ARASAKA NIEGA TODO, COMO SIEMPRE</span>
+                <span class="px-6">// PACIFICA SIGUE SIN LUZ Y SIN NOTICIAS DE LA NCPD</span>
+                <span class="px-6">// HOY EN EL AFTERLIFE: CONTRATOS NUEVOS, SOLO PARA MERCS CON EDDIES</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 py-12 md:py-20 flex-grow flex flex-col justify-center items-center text-center relative z-10 w-full">
@@ -274,6 +387,15 @@
                 <i class="fa-solid fa-microchip mr-2"></i> PROTOCOLOS
             </button>
         </div>
+
+        <!-- Section Links -->
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs tracking-widest text-cyberCyan mb-10" aria-label="Secciones">
+            <a href="#samurai" class="hover:text-cyberMagenta">// SAMURAI</a>
+            <a href="#afterlife" class="hover:text-cyberMagenta">// AFTERLIFE</a>
+            <a href="#recetario" class="hover:text-cyberMagenta">// RECETARIO</a>
+            <a href="#distritos" class="hover:text-cyberMagenta">// DISTRITOS</a>
+            <a href="#breach" class="hover:text-cyberMagenta">// BREACH_PROTOCOL</a>
+        </nav>
 
         <!-- Futuristic Stats / Grid Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left">
@@ -314,6 +436,163 @@
             </div>
         </div>
 
+        <!-- Samurai -->
+        <section id="samurai" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// CHROME_ROCK</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-6">LA BANDA <span class="text-cyberMagenta glow-magenta">SAMURAI</span></h3>
+
+            <div class="bg-cyberDark/90 border border-cyberMagenta/40 p-4 md:p-6 clip-corner-2 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <svg class="samurai-emblem w-full max-w-[240px] mx-auto" viewBox="0 0 240 270" role="img" aria-label="Emblema de la banda Samurai: casco de samurái con máscara">
+                    <path d="M120 80 L52 18 L96 40 L120 60 L144 40 L188 18 Z" fill="#FCEE0A"/>
+                    <path d="M68 104 Q120 50 172 104 L172 124 L68 124 Z" fill="#FF0055"/>
+                    <path d="M44 128 L196 128 L212 164 L170 146 L70 146 L28 164 Z" fill="#B3003C"/>
+                    <path d="M82 150 L158 150 L150 192 L120 216 L90 192 Z" fill="#020205" stroke="#FF0055" stroke-width="3"/>
+                    <path d="M92 160 L114 169 L110 176 L95 170 Z" fill="#FCEE0A"/>
+                    <path d="M148 160 L126 169 L130 176 L145 170 Z" fill="#FCEE0A"/>
+                    <path d="M104 190 L136 190 M108 198 L132 198 M112 206 L128 206" stroke="#FF0055" stroke-width="3"/>
+                    <text x="120" y="256" text-anchor="middle" fill="#FFFFFF" font-family="Orbitron, sans-serif" font-weight="900" font-size="31" letter-spacing="2">SAMURAI</text>
+                </svg>
+
+                <div>
+                    <div class="text-xs uppercase text-cyberCyan/70 mb-2">Formación</div>
+                    <ul class="text-sm space-y-1 text-white">
+                        <li>Johnny Silverhand <span class="text-cyberCyan/70">// voz y guitarra</span></li>
+                        <li>Kerry Eurodyne <span class="text-cyberCyan/70">// guitarra</span></li>
+                        <li>Nancy Hartley <span class="text-cyberCyan/70">// teclados</span></li>
+                        <li>Denny <span class="text-cyberCyan/70">// batería</span></li>
+                        <li>Henry <span class="text-cyberCyan/70">// bajo</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="text-xs uppercase text-cyberCyan/70 mb-2">Temas</div>
+                    <ul class="text-sm space-y-1 text-cyberYellow">
+                        <li><i class="fa-solid fa-play text-[10px] mr-2"></i>Chippin' In</li>
+                        <li><i class="fa-solid fa-play text-[10px] mr-2"></i>Never Fade Away</li>
+                        <li><i class="fa-solid fa-play text-[10px] mr-2"></i>Archangel</li>
+                        <li><i class="fa-solid fa-play text-[10px] mr-2"></i>Black Dog</li>
+                        <li><i class="fa-solid fa-play text-[10px] mr-2"></i>The Ballad of Buck Ravers</li>
+                    </ul>
+                </div>
+
+                <blockquote class="md:col-span-3 border-l-2 border-cyberMagenta pl-4 text-cyberMagenta glow-magenta text-sm md:text-lg">
+                    "Wake the f*** up, samurai. We have a city to burn."
+                    <footer class="text-xs text-cyberCyan/70 mt-1" style="text-shadow: none">// JOHNNY SILVERHAND</footer>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Afterlife -->
+        <section id="afterlife" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// WATSON // LITTLE CHINA</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-6">EL BAR DE LOS MERCS</h3>
+
+            <div class="bg-cyberDarker border border-cyberMagenta/40 p-4 md:p-8 clip-corner-1 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="text-center">
+                    <div class="afterlife-sign cyber-font font-black text-3xl sm:text-4xl md:text-5xl tracking-widest">AFTERLIFE</div>
+                    <p class="text-sm text-cyberCyan/80 mt-4">Una antigua morgue convertida en el bar de los mercenarios de Night City. Lo dirige Rogue Amendiares, la reina de los fixers: si buscas trabajo, aquí es donde se consigue.</p>
+                </div>
+
+                <div>
+                    <div class="text-xs uppercase text-cyberCyan/70 mb-2">Carta // tragos con nombre de leyenda</div>
+                    <ul class="text-sm divide-y divide-cyberMagenta/20">
+                        <li class="py-2"><span class="text-cyberYellow">Johnny Silverhand</span><br><span class="text-xs text-cyberCyan/70">Para quienes quieren quemarlo todo.</span></li>
+                        <li class="py-2"><span class="text-cyberYellow">Jackie Welles</span><br><span class="text-xs text-cyberCyan/70">Al estilo Moscow Mule. Por un amigo que nunca se va.</span></li>
+                        <li class="py-2"><span class="text-cyberYellow">David Martinez</span><br><span class="text-xs text-cyberCyan/70">Para los que apuntan a lo más alto de la ciudad.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Afterlife Recipes -->
+        <section id="recetario" class="w-full max-w-5xl mt-6 text-left scroll-mt-32">
+            <div class="text-xs uppercase tracking-widest text-cyberMagenta mb-1">// RECETARIO_DEL_AFTERLIFE</div>
+            <p class="text-xs text-cyberCyan/70 mb-4">Recetas aproximadas, no oficiales: el juego no publica las cantidades exactas.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <details class="bg-cyberDark/90 border border-cyberYellow/30 p-4" open>
+                    <summary class="cyber-font text-white font-bold uppercase cursor-pointer">Jackie Welles</summary>
+                    <p class="text-xs text-cyberYellow mt-2">// BASE: MOSCOW MULE</p>
+                    <ul class="text-sm text-white mt-3 space-y-1">
+                        <li>45 ml de vodka</li>
+                        <li>120 ml de ginger beer</li>
+                        <li>10 ml de jugo de lima</li>
+                        <li>Rodaja de lima para decorar</li>
+                    </ul>
+                    <p class="text-xs text-cyberCyan/70 mt-3">Sirve el vodka y el jugo de lima en un vaso con hielo, completa con ginger beer, revuelve suave y decora con la lima.</p>
+                </details>
+
+                <details class="bg-cyberDark/90 border border-cyberYellow/30 p-4" open>
+                    <summary class="cyber-font text-white font-bold uppercase cursor-pointer">Johnny Silverhand</summary>
+                    <p class="text-xs text-cyberYellow mt-2">// BASE: OLD FASHIONED CON CERVEZA // RECETA DE FANS</p>
+                    <ul class="text-sm text-white mt-3 space-y-1">
+                        <li>60 ml de tequila añejo</li>
+                        <li>Azúcar y amargo de angostura, a gusto</li>
+                        <li>Un chorrito de cerveza</li>
+                        <li>Un chile para decorar</li>
+                    </ul>
+                    <p class="text-xs text-cyberCyan/70 mt-3">Disuelve el azúcar con el amargo, agrega el tequila y revuelve con hielo. Termina con la cerveza y decora con el chile.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Districts -->
+        <section id="distritos" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// MAPA_DE_RIESGO</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-6">LOS SEIS <span class="text-cyberCyan glow-cyan">DISTRITOS</span></h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">Watson</h4><p class="text-xs text-cyberYellow mt-1">// MAELSTROM</p><p class="text-xs text-cyberCyan/70 mt-2">Kabuki, Little China y más cromo del que un cuerpo aguanta.</p></div>
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">Westbrook</h4><p class="text-xs text-cyberYellow mt-1">// TYGER CLAWS</p><p class="text-xs text-cyberCyan/70 mt-2">Neón y lujo en Japantown, con katanas a la vuelta de la esquina.</p></div>
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">City Center</h4><p class="text-xs text-cyberYellow mt-1">// ARASAKA Y MILITECH</p><p class="text-xs text-cyberCyan/70 mt-2">Las torres corporativas. Aquí se decide quién vive y quién no.</p></div>
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">Heywood</h4><p class="text-xs text-cyberYellow mt-1">// VALENTINOS</p><p class="text-xs text-cyberCyan/70 mt-2">Familia, honor y oro. Calor, lowriders y lealtad al barrio.</p></div>
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">Santo Domingo</h4><p class="text-xs text-cyberYellow mt-1">// 6TH STREET</p><p class="text-xs text-cyberCyan/70 mt-2">Fábricas, megabloques y patriotas armados hasta los dientes.</p></div>
+                <div class="bg-cyberDark/90 border border-cyberCyan/30 p-4"><h4 class="cyber-font text-white font-bold uppercase">Pacifica</h4><p class="text-xs text-cyberYellow mt-1">// VOODOO BOYS Y ANIMALS</p><p class="text-xs text-cyberCyan/70 mt-2">El resort que nunca abrió. Ni la NCPD quiere entrar.</p></div>
+            </div>
+        </section>
+
+        <!-- Breach Protocol Minigame -->
+        <section id="breach" class="w-full max-w-5xl mt-16 text-left scroll-mt-32">
+            <div class="text-cyberMagenta text-xs tracking-widest mb-1">// MINIJUEGO</div>
+            <h3 class="cyber-font text-2xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">BREACH <span class="text-cyberYellow glow-yellow">PROTOCOL</span></h3>
+            <p class="text-sm text-cyberCyan/80 mb-6 max-w-2xl">Hackea el ICE: completa la secuencia en orden y sin interrupciones antes de llenar el búfer. Empiezas en la primera fila y cada selección alterna entre fila y columna.</p>
+
+            <div class="bg-cyberDark/90 border border-cyberCyan/30 p-3 md:p-6 clip-corner-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="breach-grid" class="breach-grid" role="group" aria-label="Matriz de códigos"></div>
+
+                <div class="flex flex-col gap-5">
+                    <div class="grid grid-cols-3 gap-2 text-xs uppercase">
+                        <div><div class="text-cyberCyan/70">Nivel</div><div id="breach-level" class="cyber-font text-xl text-white">1</div></div>
+                        <div><div class="text-cyberCyan/70">Eddies</div><div id="breach-score" class="cyber-font text-xl text-white">0</div></div>
+                        <div><div class="text-cyberCyan/70">Récord</div><div id="breach-best" class="cyber-font text-xl text-cyberYellow">0</div></div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs uppercase text-cyberCyan/70 mb-1">
+                            <span>Tiempo</span><span id="breach-time" class="text-white">30.0</span>
+                        </div>
+                        <div class="h-1.5 bg-cyberDarker border border-cyberCyan/20">
+                            <div id="breach-time-bar" class="h-full bg-cyberCyan" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-xs uppercase text-cyberCyan/70 mb-2">Secuencia objetivo</div>
+                        <div id="breach-target" class="flex flex-wrap gap-1"></div>
+                    </div>
+
+                    <div>
+                        <div class="text-xs uppercase text-cyberCyan/70 mb-2">Búfer</div>
+                        <div id="breach-buffer" class="flex flex-wrap gap-1"></div>
+                    </div>
+
+                    <p id="breach-status" class="text-sm text-cyberYellow min-h-[2.5rem]" aria-live="polite"></p>
+
+                    <button id="breach-action" type="button" class="hidden bg-cyberYellow text-cyberDarker font-black px-6 py-3 uppercase tracking-widest cyber-font clip-btn hover:bg-cyberCyan transition-all duration-200 text-sm"></button>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -326,6 +605,7 @@
                 <span class="hover:text-cyberYellow cursor-pointer">// SOPORTE_MAX-TAC</span>
             </div>
         </div>
+        <p class="max-w-7xl mx-auto mt-2 text-[11px] text-cyberCyan/50">Fan page no oficial, sin afiliación con CD PROJEKT RED. Cyberpunk 2077 y sus elementos pertenecen a sus respectivos dueños.</p>
     </footer>
 
     <!-- JavaScript Interactive Logic -->
@@ -395,6 +675,286 @@
                 toast.remove();
             }, 3000);
         }
+    </script>
+
+    <!-- Breach Protocol Minigame Logic -->
+    <script>
+        (function () {
+            const CODES = ['1C', 'BD', '55', 'E9', '7A'];
+            const BEST_KEY = 'nc-breach-best';
+
+            const gridEl = document.getElementById('breach-grid');
+            const targetEl = document.getElementById('breach-target');
+            const bufferEl = document.getElementById('breach-buffer');
+            const statusEl = document.getElementById('breach-status');
+            const actionEl = document.getElementById('breach-action');
+            const levelEl = document.getElementById('breach-level');
+            const scoreEl = document.getElementById('breach-score');
+            const bestEl = document.getElementById('breach-best');
+            const timeEl = document.getElementById('breach-time');
+            const timeBarEl = document.getElementById('breach-time-bar');
+
+            let level = 1;
+            let score = 0;
+            let best = loadBest();
+            let round = null;
+            let timerId = null;
+
+            function loadBest() {
+                try {
+                    return Number(localStorage.getItem(BEST_KEY)) || 0;
+                } catch (e) {
+                    return 0;
+                }
+            }
+
+            function saveBest() {
+                try {
+                    localStorage.setItem(BEST_KEY, String(best));
+                } catch (e) {
+                    // Sin almacenamiento el récord solo dura esta visita.
+                }
+            }
+
+            function randomItem(items) {
+                return items[Math.floor(Math.random() * items.length)];
+            }
+
+            // Busca un recorrido válido (primera fila, luego columna, fila...) sin repetir celdas.
+            function buildSolutionPath(size, length) {
+                while (true) {
+                    const path = [[0, Math.floor(Math.random() * size)]];
+                    while (path.length < length) {
+                        const [row, col] = path[path.length - 1];
+                        const moveInColumn = path.length % 2 === 1;
+                        const options = [];
+                        for (let i = 0; i < size; i++) {
+                            const next = moveInColumn ? [i, col] : [row, i];
+                            if (!path.some(([r, c]) => r === next[0] && c === next[1])) {
+                                options.push(next);
+                            }
+                        }
+                        if (options.length === 0) break;
+                        path.push(randomItem(options));
+                    }
+                    if (path.length === length) return path;
+                }
+            }
+
+            function startRound() {
+                clearInterval(timerId);
+
+                const size = level >= 3 ? 6 : 5;
+                const targetLength = Math.min(3 + Math.floor((level - 1) / 2), 6);
+                const grid = Array.from({ length: size }, () =>
+                    Array.from({ length: size }, () => randomItem(CODES))
+                );
+                const target = Array.from({ length: targetLength }, () => randomItem(CODES));
+
+                // La secuencia se planta en la matriz para que siempre tenga solución.
+                buildSolutionPath(size, targetLength).forEach(([r, c], i) => {
+                    grid[r][c] = target[i];
+                });
+
+                const totalTime = Math.max(12, 30 - (level - 1) * 2);
+                round = {
+                    size,
+                    grid,
+                    target,
+                    bufferSize: targetLength + 2,
+                    buffer: [],
+                    used: new Set(),
+                    axis: 'row',
+                    line: 0,
+                    phase: 'ready',
+                    totalTime,
+                    remaining: totalTime,
+                    deadline: 0,
+                };
+
+                actionEl.classList.add('hidden');
+                buildGrid();
+                setStatus('Elige un código de la fila resaltada. El tiempo corre desde tu primera selección.');
+                render();
+            }
+
+            function buildGrid() {
+                gridEl.textContent = '';
+                gridEl.style.gridTemplateColumns = `repeat(${round.size}, minmax(0, 1fr))`;
+                round.grid.forEach((rowCodes, r) => {
+                    rowCodes.forEach((code, c) => {
+                        const cell = document.createElement('button');
+                        cell.type = 'button';
+                        cell.className = 'breach-cell';
+                        cell.textContent = code;
+                        cell.dataset.row = r;
+                        cell.dataset.col = c;
+                        cell.setAttribute('aria-label', `${code}, fila ${r + 1}, columna ${c + 1}`);
+                        cell.addEventListener('click', () => pickCell(r, c));
+                        gridEl.appendChild(cell);
+                    });
+                });
+            }
+
+            function isPlayable(r, c) {
+                if (round.phase === 'over' || round.used.has(`${r},${c}`)) return false;
+                return round.axis === 'row' ? r === round.line : c === round.line;
+            }
+
+            function hasMoves() {
+                for (let i = 0; i < round.size; i++) {
+                    const playable = round.axis === 'row' ? isPlayable(round.line, i) : isPlayable(i, round.line);
+                    if (playable) return true;
+                }
+                return false;
+            }
+
+            function pickCell(r, c) {
+                if (!isPlayable(r, c)) return;
+
+                if (round.phase === 'ready') {
+                    round.phase = 'running';
+                    round.deadline = performance.now() + round.totalTime * 1000;
+                    timerId = setInterval(tick, 100);
+                }
+
+                round.used.add(`${r},${c}`);
+                round.buffer.push(round.grid[r][c]);
+                round.axis = round.axis === 'row' ? 'col' : 'row';
+                round.line = round.axis === 'row' ? r : c;
+
+                if (matchedLength() === round.target.length) {
+                    winRound();
+                } else if (round.buffer.length >= round.bufferSize) {
+                    loseRound('BÚFER LLENO // INTRUSIÓN DETECTADA.');
+                } else if (!hasMoves()) {
+                    loseRound('SIN CÓDIGOS DISPONIBLES // INTRUSIÓN DETECTADA.');
+                } else {
+                    setStatus(`Ahora elige en la ${round.axis === 'row' ? 'fila' : 'columna'} resaltada.`);
+                }
+
+                render();
+                moveFocus();
+            }
+
+            // Cuántos códigos de la secuencia coinciden con el final del búfer.
+            function matchedLength() {
+                const { buffer, target } = round;
+                for (let n = Math.min(buffer.length, target.length); n > 0; n--) {
+                    if (target.slice(0, n).every((code, i) => code === buffer[buffer.length - n + i])) {
+                        return n;
+                    }
+                }
+                return 0;
+            }
+
+            function tick() {
+                round.remaining = Math.max(0, (round.deadline - performance.now()) / 1000);
+                if (round.remaining === 0) {
+                    loseRound('TIEMPO AGOTADO // INTRUSIÓN DETECTADA.');
+                    render();
+                } else {
+                    renderTimer();
+                }
+            }
+
+            function winRound() {
+                endRound();
+                const gained = 100 * level + Math.ceil(round.remaining) * 10;
+                score += gained;
+                if (score > best) {
+                    best = score;
+                    saveBest();
+                }
+                level += 1;
+                setStatus(`ACCESO CONCEDIDO // +${gained} EDDIES.`);
+                showAction('SIGUIENTE NIVEL');
+            }
+
+            function loseRound(message) {
+                endRound();
+                setStatus(`${message} EDDIES FINALES: ${score}.`);
+                level = 1;
+                score = 0;
+                showAction('REINTENTAR');
+            }
+
+            function endRound() {
+                clearInterval(timerId);
+                if (round.phase === 'running') {
+                    round.remaining = Math.max(0, (round.deadline - performance.now()) / 1000);
+                }
+                round.phase = 'over';
+            }
+
+            function setStatus(message) {
+                statusEl.textContent = message;
+            }
+
+            function showAction(label) {
+                actionEl.textContent = label;
+                actionEl.classList.remove('hidden');
+            }
+
+            // Mantiene el foco en el juego al usar el teclado, ya que la celda elegida queda deshabilitada.
+            function moveFocus() {
+                const focused = document.activeElement;
+                if (focused && focused !== document.body && !focused.disabled) return;
+                const next = round.phase === 'over' ? actionEl : gridEl.querySelector('.is-active');
+                if (next) next.focus({ preventScroll: true });
+            }
+
+            function renderSlots(container, count, codes, matchedFrom, matchedTo) {
+                container.textContent = '';
+                for (let i = 0; i < count; i++) {
+                    const slot = document.createElement('span');
+                    slot.className = 'breach-slot';
+                    if (codes[i]) {
+                        slot.textContent = codes[i];
+                        slot.classList.add('is-filled');
+                    }
+                    if (i >= matchedFrom && i < matchedTo) slot.classList.add('is-matched');
+                    container.appendChild(slot);
+                }
+            }
+
+            function renderTimer() {
+                const ratio = round.remaining / round.totalTime;
+                timeEl.textContent = round.remaining.toFixed(1);
+                timeBarEl.style.width = `${ratio * 100}%`;
+                timeBarEl.classList.toggle('bg-cyberCyan', round.remaining > 5);
+                timeBarEl.classList.toggle('bg-cyberMagenta', round.remaining <= 5);
+            }
+
+            function render() {
+                gridEl.querySelectorAll('.breach-cell').forEach((cell) => {
+                    const r = Number(cell.dataset.row);
+                    const c = Number(cell.dataset.col);
+                    const playable = isPlayable(r, c);
+                    cell.disabled = !playable;
+                    cell.classList.toggle('is-active', playable);
+                    cell.classList.toggle('is-used', round.used.has(`${r},${c}`));
+                });
+
+                const matched = matchedLength();
+                renderSlots(targetEl, round.target.length, round.target, 0, matched);
+                renderSlots(bufferEl, round.bufferSize, round.buffer, round.buffer.length - matched, round.buffer.length);
+
+                // El nivel y los puntos ya cambiaron al terminar la ronda; se muestran los vigentes.
+                levelEl.textContent = level;
+                scoreEl.textContent = score;
+                bestEl.textContent = best;
+                renderTimer();
+            }
+
+            actionEl.addEventListener('click', () => {
+                startRound();
+                const first = gridEl.querySelector('.is-active');
+                if (first) first.focus({ preventScroll: true });
+            });
+
+            startRound();
+        })();
     </script>
 </body>
 </html>
